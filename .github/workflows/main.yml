@@ -6,10 +6,9 @@ on: [push]
 
 jobs:
   build:
-    strategy:
-      matrix:
-        IMAGE_NAME: BT-Panel
-        IMAGE_VERISON: clear
+    env:
+      IMAGE_NAME: BT-Panel
+      IMAGE_VERISON: clear
 
     runs-on: ubuntu-latest
 
@@ -18,9 +17,9 @@ jobs:
       uses: actions/checkout@master
     
     - name: Build image
-      run: docker build . --file Dockerfile --tag ${{ secrets.DockerHub_Useranme }}/${{ matrix.IMAGE_NAME }}:${{ matrix.IMAGE_VERISON }}
+      run: docker build . --file Dockerfile --tag ${{ secrets.DockerHub_Useranme }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERISON }}
     - name: Login registry
       run: echo "${{ secrets.DockerHub_Password }}" | docker login -u ${{ secrets.DockerHub_Useranme }} --password-stdin
 
     - name: Push image
-      run: docker push ${{ secrets.DockerHub_Useranme }}/${{ matrix.IMAGE_NAME }}:${{ matrix.IMAGE_VERISON }}
+      run: docker push ${{ secrets.DockerHub_Useranme }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERISON }}
