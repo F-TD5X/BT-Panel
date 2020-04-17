@@ -2,25 +2,26 @@ name: CI Build BT-Panel Base Centos7
 
 on: [push]
 
+env:
+  ssh_enabled: false
+  IMAGE_NAME: bt-panel
+  IMAGE_VERISON: lnpwpf
+
 jobs:
   build:
-    env:
-      IMAGE_NAME: bt-panel
-      IMAGE_VERISON: lnpwpf
-
     runs-on: ubuntu-latest
 
     steps:
+
     - name: Checkout
       uses: actions/checkout@master
     
     - name: SSH connection
       uses: mxschmitt/action-tmate@v2
+      if: env.ssh_enabled == 'true'
     
     - name: Build image
-      run: docker buildx build --allow security.insecure . --file Dockerfile --tag ${{ secrets.DockerHub_Useranme }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERISON }}
-    - name: Login registry
+      run: bash ./build.sh
+    
+      - name: Login registry
       run: echo "${{ secrets.DockerHub_Password }}" | docker login -u ${{ secrets.DockerHub_Useranme }} --password-stdin
-
-    - name: Push image
-      run: docker push ${{ secrets.DockerHub_Useranme }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERISON }}
