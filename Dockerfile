@@ -14,12 +14,13 @@ RUN mkdir -p /www/letsencrypt \
     # Install BT-Panel
     && cd /home \
     && yum -y update \
-    && yum -y install wget openssh-server \
+    && yum -y install wget openssh-server e2fsprogs \
     && echo 'Port 63322' > /etc/ssh/sshd_config \
     && wget -O install.sh https://download.ccspump.com/install/install_6.0.sh \
     && echo y | bash install.sh \
     && python /default_var.py \
-    && echo '["linuxsys", "webssh"]' > /www/server/panel/config/index.json
+    && echo '["linuxsys", "webssh"]' > /www/server/panel/config/index.json \
+    && yum clean all
 
 WORKDIR /www/wwwroot
 CMD /entrypoint.sh
