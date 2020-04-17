@@ -15,7 +15,6 @@ RUN mkdir -p /www/letsencrypt \
     && cd /home \
     && yum -y update \
     && yum -y install wget openssh-server e2fsprogs \
-    && echo 'Port 63322' > /etc/ssh/sshd_config \
     && wget -O install.sh https://download.ccspump.com/install/install_6.0.sh \
     && echo y | bash install.sh \
     && python /default_var.py \
@@ -24,6 +23,10 @@ RUN mkdir -p /www/letsencrypt \
 
 WORKDIR /www/wwwroot
 CMD /entrypoint.sh
-EXPOSE 8888 888 21 20 443 80
+EXPOSE 20 21 25 80 110 143 443 465 993 995 888 8888
+# FTP: 20 21 
+# SSH: 22
+# Email: 25 110 143 465 993 995
+# BT-Panel: 888 8888
 
 HEALTHCHECK --interval=5s --timeout=3s CMD curl -fs http://localhost:8888/ && curl -fs http://localhost/ || exit 1 
