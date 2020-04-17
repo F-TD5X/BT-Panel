@@ -7,7 +7,7 @@ on: [push]
 jobs:
   build:
     env:
-      IMAGE_NAME: BT-Panel
+      IMAGE_NAME: bt-panel
       IMAGE_VERISON: clear
 
     runs-on: ubuntu-latest
