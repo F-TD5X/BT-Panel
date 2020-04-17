@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@clear
+    - uses: actions/checkout@master
     - name: Build image
       run: docker build . --file Dockerfile --tag ${{ secrets.DockerHub_Useranme }}/$IMAGE_NAME:$IMAGE_VERISON --squash
     - name: Login registry
