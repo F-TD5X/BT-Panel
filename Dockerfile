@@ -1,4 +1,4 @@
-FROM ftd5x/bt-panel
+FROM ftd5x/bt-panel:clear
 MAINTAINER F_TD5X
     
 RUN  bash /www/server/panel/install/install_soft.sh 0 install nginx 1.17 \ 
