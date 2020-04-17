@@ -1,0 +1,22 @@
+name: CI Build BT-Panel Base Centos7
+
+on: [push]
+
+env:
+    IMAGE_ANME: BT-Panel
+    IMAGE_VERISON: clear
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@clear
+    - name: Build image
+      run: docker build . --file Dockerfile --tag ${{ secrets.DockerHub_Useranme }}/$IMAGE_NAME:$IMAGE_VERISON --squash
+    - name: Login registry
+      run: echo "${{ secrets.DockerHub_Password }}" | docker login -u ${{ secrets.DockerHub_Useranme }} --password-stdin
+
+    - name: Push image
+      run: docker push ${{ secrets.DockerHub_Useranme }}/$IMAGE_NAME:$IMAGE_VERISON
