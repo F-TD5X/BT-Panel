@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@master
     
     - name: SSH connection
-      uses: P3TERX/debugger-action@master
+      uses: mxschmitt/action-tmate@v1
     
     - name: Build image
       run: docker buildx build --allow security.insecure . --file Dockerfile --tag ${{ secrets.DockerHub_Useranme }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERISON }}
