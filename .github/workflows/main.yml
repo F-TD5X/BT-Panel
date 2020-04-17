@@ -10,14 +10,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     - name: Checkout
       uses: actions/checkout@master
-    
-    - name: SSH connection
-      uses: mxschmitt/action-tmate@v2
-      if: env.ssh_enabled == 'true'
-    
+      
     - name: Build image
       run: bash ./build.sh
     
