@@ -20,7 +20,7 @@ jobs:
       if: env.SSH_ACTION == 'true'
     
     - name: Build image
-      run: docker buildx build --allow security.insecure . --file Dockerfile --tag ${{ secrets.DockerHub_Useranme }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERISON }}
+      run: docker build . --file Dockerfile --tag ${{ secrets.DockerHub_Useranme }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERISON }}
     - name: Login registry
       run: echo "${{ secrets.DockerHub_Password }}" | docker login -u ${{ secrets.DockerHub_Useranme }} --password-stdin
 
