@@ -2,7 +2,7 @@ FROM centos:7
 MAINTAINER F_TD5X
 
 COPY entrypoint.sh /entrypoint.sh
-COPY set_default.py /set_default.py
+COPY default_var.py /default_var.py
 
 RUN mkdir -p /www/letsencrypt \
     && ln -s /www/letsencrypt /etc/letsencrypt \
@@ -18,7 +18,7 @@ RUN mkdir -p /www/letsencrypt \
     && echo 'Port 63322' > /etc/ssh/sshd_config \
     && wget -O install.sh https://download.ccspump.com/install/install_6.0.sh \
     && echo y | bash install.sh \
-    && python /set_default.py \
+    && python /default_var.py \
     && echo '["linuxsys", "webssh"]' > /www/server/panel/config/index.json
 
 WORKDIR /www/wwwroot
