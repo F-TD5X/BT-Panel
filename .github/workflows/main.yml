@@ -8,7 +8,7 @@ jobs:
   build:
     env:
       IMAGE_NAME: bt-panel
-      IMAGE_VERISON: clear
+      IMAGE_VERISON: H_clear
 
     runs-on: ubuntu-latest
 

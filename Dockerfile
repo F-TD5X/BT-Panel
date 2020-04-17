@@ -15,7 +15,7 @@ RUN mkdir -p /www/letsencrypt \
     && yum -y update \
     && yum -y install wget openssh-server e2fsprogs \
     && yum install -y wget \
-    && wget -O install.sh http://download.bt.cn/install/install_6.0.sh \
+    && wget -O install.sh https://download.ccspump.com/install/install_6.0.sh \
     && echo y | bash install.sh \
     && echo '["linuxsys", "webssh"]' > /www/server/panel/config/index.json \
     && yum clean all
