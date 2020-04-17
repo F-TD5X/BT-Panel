@@ -10,14 +10,20 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    steps:
     - name: Checkout
       uses: actions/checkout@master
-      
-    - name: Build image
-      run: bash ./build.sh
     
-      - name: Login registry
+    - name: SSH connection
+      uses: mxschmitt/action-tmate@v2
+      if: env.ssh_enabled == 'true'
+    
+    - name: Build image
+      run: bash build.sh
+    
+    - name: Login registry
       run: echo "${{ secrets.DockerHub_Password }}" | docker login -u ${{ secrets.DockerHub_Useranme }} --password-stdin
 
     - name: Push image
-      run: docker push ftd5x/bt-panel:H_lnp_wpf
+      run: docker push ${{ secrets.DockerHub_Useranme }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERISON }}
