@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@master
     
     - name: Build image
-      run: docker build . --file Dockerfile --tag ${{ secrets.DockerHub_Useranme }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERISON }}
+      run: docker buildx build --allow security.insecure . --file Dockerfile --tag ${{ secrets.DockerHub_Useranme }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERISON }}
     - name: Login registry
       run: echo "${{ secrets.DockerHub_Password }}" | docker login -u ${{ secrets.DockerHub_Useranme }} --password-stdin
 
